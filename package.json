@@ -1,6 +1,6 @@
 {
   "name": "serverless-plugin-cachette",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Remote file retrieval/caching for AWS Lambda",
   "main": "./dist/src/cachette.js",
   "files": [

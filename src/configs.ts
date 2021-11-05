@@ -2,7 +2,8 @@ export abstract class ItemConfig {
   constructor(
     public fileName: string,
     public include?: string[],
-    public exclude?: string[]
+    public exclude?: string[],
+    public lifetime?: number
   ) { }
 
   abstract toCachetteTarget: () => any
@@ -18,9 +19,10 @@ export class HttpConfig extends ItemConfig {
     fileName: string,
     include: string[],
     exclude: string[],
+    lifetime: number,
     public url: string,
     public method: string,
-    public headers?: Headers) { super(fileName, include, exclude) }
+    public headers?: Headers) { super(fileName, include, exclude, lifetime) }
 
   toCachetteTarget = () => ({
     fileName: this.fileName,
@@ -29,7 +31,8 @@ export class HttpConfig extends ItemConfig {
       url: this.url,
       method: this.method,
       headers: headersToKeyValArray(this.headers)
-    }
+    },
+    lifetime: this.lifetime
   })
 
   static from = (config: any): HttpConfig => {
@@ -37,6 +40,7 @@ export class HttpConfig extends ItemConfig {
       config.fileName,
       config.include,
       config.exclude,
+      config.lifetime,
       config.url,
       config.method,
       config.headers);
